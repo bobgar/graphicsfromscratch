@@ -138,14 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Factory.h" />
-    <ClCompile Include="HelperFunctions.h" />
     <ClCompile Include="Rasterizer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CommonStructs.h" />
-    <ClInclude Include="CommonValues.h" />
-    <ClInclude Include="DrawFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

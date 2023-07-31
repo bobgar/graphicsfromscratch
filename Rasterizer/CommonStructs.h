@@ -2,8 +2,6 @@
 #include <SDL.h>
 #include <vector>
 #include <array>
-#include <iostream>
-#include <stdio.h>
 
 struct matrix4 {
     std::array<float, 16> matrix;
