@@ -708,11 +708,11 @@ camera cam = camera{
         {{s2,0,s2},0},
         {{-s2,0,s2},0},
         {{0,-s2,s2},0},
-        {{0,s2,s2},0}        
+        {{0,s2,s2},0}      
 } 
 };
 
-float maxViewAngle = 30;
+float maxViewAngle = 45;
 
 inline vec4 GetCameraForward(camera &c) {
     return VecMatrixMultiply(c.orientation, vec4{ 0,0,1, 0 });
@@ -720,23 +720,23 @@ inline vec4 GetCameraForward(camera &c) {
 
 inline void UpdateClipPlanes(camera& c) {
     vec4 forward = GetCameraForward(c);
-    /*forward.vec[0] *= -1;
-    forward.vec[1] *= -1;
-    forward.vec[2] *= -1;*/
+
     c.clippingPlanes[0].normal = Vec4To3(forward);
-    c.clippingPlanes[0].distance = -8;    
-    /*c.clippingPlanes[1].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, -maxViewAngle + 90, 0), forward));
-    c.clippingPlanes[1].distance = 0;
-    c.clippingPlanes[2].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, maxViewAngle - 90, 0), forward));
-    c.clippingPlanes[2].distance = 0;
-    c.clippingPlanes[3].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle + 90), forward));
-    c.clippingPlanes[3].distance = 0;
+    c.clippingPlanes[0].distance = -1;    
+
+    /*c.clippingPlanes[1].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle), forward)), c.position);
+    c.clippingPlanes[2].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, maxViewAngle), forward)), c.position);
+    c.clippingPlanes[3].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle), forward)), c.position);
+    c.clippingPlanes[4].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, maxViewAngle), forward)), c.position);*/
+
+    c.clippingPlanes[1].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, -maxViewAngle + 90, 0), forward));    
+    c.clippingPlanes[2].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, maxViewAngle - 90, 0), forward));    
+    c.clippingPlanes[3].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle + 90), forward));    
     c.clippingPlanes[4].normal =  Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, maxViewAngle - 90), forward));
-    c.clippingPlanes[4].distance = 0;*/
-    c.clippingPlanes[1].normal = Vec4To3(VecMatrixMultiply(c.orientation, vec4{ s2,0,s2,1 }));
+    /*c.clippingPlanes[1].normal = Vec4To3(VecMatrixMultiply(c.orientation, vec4{ s2,0,s2,1 }));
     c.clippingPlanes[2].normal = Vec4To3(VecMatrixMultiply(c.orientation, vec4{ -s2,0,s2,1 }));
     c.clippingPlanes[3].normal = Vec4To3(VecMatrixMultiply(c.orientation, vec4{ 0,-s2,s2,1 }));
-    c.clippingPlanes[4].normal = Vec4To3(VecMatrixMultiply(c.orientation, vec4{ 0,s2,s2,1 }));
+    c.clippingPlanes[4].normal = Vec4To3(VecMatrixMultiply(c.orientation, vec4{ 0,s2,s2,1 }));*/
 }
 
 inline void MoveCamera(camera& c, vec3 move) {
