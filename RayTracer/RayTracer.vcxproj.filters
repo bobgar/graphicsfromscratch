@@ -31,6 +31,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="webimple.js" />
+    <None Include="webimple.js">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
