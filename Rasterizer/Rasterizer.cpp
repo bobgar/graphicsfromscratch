@@ -477,7 +477,7 @@ inline void RenderTriangle(triangle &t, std::vector <vec3> vertices, std::vector
     // Backface culling.
     if (backfaceCullingEnabled) {
         vec3 vertex = vertices[t.indexes[0]];
-        if (DotProduct(vertex, normal) <= 0) {
+        if (DotProduct(vertex, normal) >= 0) {
             return;
         }
     }
@@ -712,7 +712,7 @@ camera cam = camera{
 } 
 };
 
-float maxViewAngle = 45;
+float maxViewAngle = 90;
 
 inline vec4 GetCameraForward(camera &c) {
     return VecMatrixMultiply(c.orientation, vec4{ 0,0,1, 0 });
@@ -722,12 +722,18 @@ inline void UpdateClipPlanes(camera& c) {
     vec4 forward = GetCameraForward(c);
 
     c.clippingPlanes[0].normal = Vec4To3(forward);
-    c.clippingPlanes[0].distance = -1;    
+    c.clippingPlanes[0].distance = -8;    
 
-    /*c.clippingPlanes[1].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle), forward)), c.position);
-    c.clippingPlanes[2].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, maxViewAngle), forward)), c.position);
-    c.clippingPlanes[3].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle), forward)), c.position);
-    c.clippingPlanes[4].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, maxViewAngle), forward)), c.position);*/
+    //c.clippingPlanes[1].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle), forward)), c.position);    
+    //c.clippingPlanes[2].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, maxViewAngle), forward)), c.position);
+    //c.clippingPlanes[3].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, -maxViewAngle), forward)), c.position);
+    //c.clippingPlanes[4].normal = Cross(Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, 0, maxViewAngle), forward)), c.position);
+
+    //for (int i = 1; i < c.clippingPlanes.size(); i++) {
+    //    if (DotProduct(c.clippingPlanes[1].normal, Vec4To3(forward)) > 0) {
+    //        c.clippingPlanes[1].normal = c.clippingPlanes[1].normal * -1.0;
+    //    }
+    //}
 
     c.clippingPlanes[1].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, -maxViewAngle + 90, 0), forward));    
     c.clippingPlanes[2].normal = Vec4To3(VecMatrixMultiply(MakeRotationMatrix(0, maxViewAngle - 90, 0), forward));    
